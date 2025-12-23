@@ -50,7 +50,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="/index.php">
                 <i class="fas fa-university me-2"></i>Campus Management System
             </a>
             
