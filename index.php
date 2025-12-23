@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Management System - Login</title>
+    <title>Campus Management System - Overview</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for Icons -->
@@ -47,7 +47,7 @@
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px; /* Slightly wider for text content */
             padding: 20px;
             margin: auto;
         }
@@ -57,10 +57,10 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             display: flex;
             flex-direction: row;
-            min-height: 550px;
+            min-height: 600px; /* Taller to accommodate text */
         }
 
         .university-logo {
@@ -77,108 +77,79 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .login-left-side {
+        .info-left-side {
             background: var(--primary-color);
             color: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 50px;
-            text-align: center;
+            align-items: flex-start;
+            padding: 60px;
+            text-align: left;
             flex: 1;
         }
 
-        .login-right-side {
-            padding: 50px;
-            flex: 1.2;
+        .content-right-side {
+            padding: 60px;
+            flex: 1.3;
             background: white;
             display: flex;
             flex-direction: column;
             justify-content: center;
-        }
-
-        .form-control {
-            border-radius: 8px;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            background-color: #f8f9fa;
-        }
-
-        .form-control:focus {
-            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
-            border-color: var(--primary-color);
-            background-color: #fff;
-        }
-
-        .input-group-text {
-            background-color: #f8f9fa;
-            border: 1px solid #ced4da;
-            border-left: none;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-        
-        .form-control + .input-group-text {
-            border-left: none;
-        }
-
-        .btn-login {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            border: none;
-        }
-
-        .btn-login:hover {
-            background-color: #08347a;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 71, 161, 0.3);
+            color: #333;
         }
 
         .system-title {
-            font-weight: 700;
+            font-weight: 800;
             color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .system-subtitle {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 30px;
-        }
-
-        .left-side-text h2 {
-            font-weight: 700;
             margin-bottom: 15px;
+            font-size: 2rem;
         }
 
-        .left-side-text p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .section-header {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
-        .feature-list {
+        .text-content p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .highlight-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .feature-list-large {
             list-style: none;
             padding: 0;
-            text-align: left;
             margin-top: 20px;
         }
 
-        .feature-list li {
-            margin-bottom: 10px;
+        .feature-list-large li {
+            margin-bottom: 15px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            font-size: 1.1rem;
         }
 
-        .feature-list i {
-            margin-right: 10px;
+        .feature-list-large i {
+            margin-right: 15px;
+            margin-top: 5px;
             color: var(--accent-color);
+            font-size: 1.2rem;
         }
 
         /* --- RESPONSIVE DESIGN TWEAKS --- */
@@ -186,26 +157,31 @@
         @media (max-width: 991.98px) {
             .card {
                 flex-direction: column;
-                max-width: 500px;
+                max-width: 600px;
                 margin: 0 auto;
                 min-height: auto;
             }
-            .login-left-side {
-                display: none;
+            .info-left-side {
+                padding: 40px;
+                align-items: center;
+                text-align: center;
             }
-            .login-right-side {
+            .content-right-side {
                 padding: 40px 30px;
+            }
+            .feature-list-large li {
+                justify-content: flex-start;
             }
         }
 
         @media (max-width: 576px) {
-            .university-logo {
-                width: 70px;
-                height: 70px;
-                font-size: 30px;
-            }
             .system-title {
                 font-size: 1.5rem;
+            }
+            .university-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 25px;
             }
         }
     </style>
@@ -214,80 +190,76 @@
 
     <div class="login-container">
         <div class="card">
-            <!-- Left Side: Description & Info -->
-            <div class="login-left-side">
-                <div class="left-side-text">
-                    <h2>CMS Portal</h2>
-                    <p>Welcome to the unified digital campus experience. Manage your academic journey with ease and efficiency.</p>
-                    <p>THIS WEBSITE OR ERP IS BETTER THAN NEOTECH WEBSITE AND GTU STUDENT PORTAL</p>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-graduation-cap"></i> Course Management</li>
-                        <li><i class="fas fa-calendar-check"></i> Attendance Tracking</li>
-                        <li><i class="fas fa-book-reader"></i> Digital Library Access</li>
-                        <li><i class="fas fa-bullhorn"></i> Campus Announcements</li>
-                    </ul>
-
-                    <div class="mt-4">
-                        <small>Need Help?</small><br>
-                        <strong>support@university.edu</strong>
-                    </div>
+            <!-- Left Side: Core Identity -->
+            <div class="info-left-side">
+                <div class="university-logo mb-4">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h1 class="fw-bold display-6 mb-3">CMS Portal</h1>
+                <p class="lead mb-4">The Next-Generation Academic Ecosystem</p>
+                <div class="d-none d-lg-block">
+                    <hr class="border-white opacity-50 my-4" style="width: 50px; border-width: 3px;">
+                    <p class="opacity-75">
+                        Empowering students and faculty with seamless digital tools. Join thousands of users who have switched to a smarter way of learning.
+                    </p>
                 </div>
             </div>
 
-            <!-- Right Side: Login Form -->
-            <div class="login-right-side">
-                <div class="text-center">
-                    <div class="university-logo">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <h3 class="system-title">Welcome Back</h3>
-                    <p class="system-subtitle">Please enter your credentials to access the Campus Management System.</p>
-                </div>
+            <!-- Right Side: Expanded Text Content (Replaces Inputs) -->
+            <div class="content-right-side">
+                <h2 class="system-title">Welcome to the Future</h2>
+                
+                <div class="text-content">
+                    <p>
+                        The Campus Management System (CMS) represents a paradigm shift in educational administration. Designed with a student-first philosophy, our platform eliminates the bureaucratic hurdles often associated with university portals.
+                    </p>
 
-                <!-- Form redirects to auth/login.php using standard HTML action -->
-                <form action="auth/login.php" method="POST">
-                    <!-- Role Selection -->
-                    <div class="mb-3 text-center">
-                        <div class="btn-group w-100" role="group">
-                            <input type="radio" class="btn-check" name="role" id="role-student" value="student" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="role-student">Student</label>
-                          
-                            <input type="radio" class="btn-check" name="role" id="role-faculty" value="faculty" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="role-faculty">Faculty</label>
-                          
-                            <input type="radio" class="btn-check" name="role" id="role-admin" value="admin" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="role-admin">Admin</label>
-                        </div>
+                    <div class="highlight-box">
+                        <i class="fas fa-star text-warning me-2"></i>
+                        <strong>Superior Performance:</strong> 
+                        THIS WEBSITE OR ERP IS BETTER THAN NEOTECH WEBSITE AND GTU STUDENT PORTAL.
                     </div>
 
-                    <!-- Username Field -->
-                    <div class="mb-3">
-                        <label for="username" class="form-label fw-bold small text-muted">Student ID / Username</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i class="fas fa-user text-secondary"></i></span>
-                            <input type="text" class="form-control border-start-0 ps-0" id="username" name="username" placeholder="e.g. STU123456" required>
-                        </div>
+                    <h3 class="section-header">Why We Are Different</h3>
+                    <p>
+                        Unlike legacy systems that suffer from downtime during critical exam periods, our cloud-native architecture ensures 99.99% uptime. We have streamlined the user experience to ensure that you spend less time navigating menus and more time focusing on your education.
+                    </p>
+
+                    <h3 class="section-header">Key Modules</h3>
+                    <ul class="feature-list-large">
+                        <li>
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <strong>Instant Results:</strong> View your grades immediately upon release without server lag.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <strong>Mobile Optimized:</strong> Access your attendance, library books, and schedule from any device, anywhere.
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Secure Data:</strong> Enterprise-grade encryption keeps your personal academic records safe.
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- Added Login Button -->
+                    <div class="d-grid mt-4">
+                        <a href="auth/login.php" class="btn btn-lg text-white shadow-sm" style="background-color: var(--primary-color); border: none;">
+                            <i class="fas fa-sign-in-alt me-2"></i> Login to Portal
+                        </a>
                     </div>
 
-                    <!-- Password Field -->
-                    <div class="mb-4">
-                        <label for="password" class="form-label fw-bold small text-muted">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0"><i class="fas fa-lock text-secondary"></i></span>
-                            <input type="password" class="form-control border-start-0 ps-0" id="password" name="password" placeholder="Enter your password" required>
-                        </div>
+                    <div class="mt-4 pt-3 border-top">
+                        <p class="small text-muted mb-0">
+                            <i class="fas fa-info-circle me-1"></i> 
+                            Access is currently restricted to enrolled students. For account credentials, please visit the Administrative Block.
+                        </p>
                     </div>
-
-                    <!-- Submit Button -->
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-login btn-lg">
-                            Login to Dashboard
-                        </button>
-                    </div>
-                </form>
-
-                <div class="text-center mt-4">
-                    <p class="small text-muted mb-0">Don't have an account? Contact Admission Office</p>
                 </div>
             </div>
         </div>
@@ -298,7 +270,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap Bundle with Popper (Optional for components like dropdowns, but no custom JS used) -->
+    <!-- Bootstrap Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
