@@ -205,7 +205,6 @@
                 </div>
             </div>
 
-            <!-- Right Side: Expanded Text Content (Replaces Inputs) -->
             <div class="content-right-side">
                 <h2 class="system-title">Welcome to the Future</h2>
                 
