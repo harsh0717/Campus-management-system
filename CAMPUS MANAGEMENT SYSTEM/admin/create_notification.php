@@ -41,6 +41,16 @@
         background-color: #00796b;
         border-color: #00796b;
     }
+    /* Styling for the checkbox group */
+    .audience-group {
+        display: flex;
+        gap: 20px;
+        padding: 10px 0;
+    }
+    .form-check-input:checked {
+        background-color: #009688;
+        border-color: #009688;
+    }
 </style>
 
 <main class="app-content">
@@ -80,12 +90,21 @@
                         <h5 class="section-header">🎯 Targeting</h5>
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <label class="form-label">Target Audience</label>
-                                <select class="form-select">
-                                    <option value="all">All Users</option>
-                                    <option value="student">Students Only</option>
-                                    <option value="faculty">Faculty Only</option>
-                                </select>
+                                <label class="form-label d-block">Target Audience</label>
+                                <div class="audience-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="audienceStudents" value="student">
+                                        <label class="form-check-label" for="audienceStudents">Students</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="audienceFaculty" value="faculty">
+                                        <label class="form-check-label" for="audienceFaculty">Faculty</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="audienceStaff" value="staff">
+                                        <label class="form-check-label" for="audienceStaff">Admin Staff</label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Priority</label>
