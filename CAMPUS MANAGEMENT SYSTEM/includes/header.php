@@ -13,8 +13,12 @@
     
     <style>
         :root {
-            --primary-color: #0d47a1; /* Academic Navy Blue */
-            --secondary-color: #f5f5f5;
+            --primary-color: #4e73df; /* Updated to match sidebar primary */
+            --secondary-color: #224abe; /* Updated to match sidebar secondary */
+            
+            /* Sidebar Variables for Calculation */
+            --sidebar-width: 260px;
+            --sidebar-collapsed-width: 70px;
         }
         
         body {
@@ -26,8 +30,32 @@
         }
 
         .navbar-custom {
-            background-color: var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            /* Updated to match Sidebar Gradient */
+            background: linear-gradient(to right, #4e73df, #224abe);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            
+            /* --- FIX: Push Header to right of Sidebar --- */
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- FIX: Adjust Header when Sidebar is collapsed --- */
+        body.sidebar-collapsed .navbar-custom {
+            margin-left: var(--sidebar-collapsed-width);
+            width: calc(100% - var(--sidebar-collapsed-width));
+        }
+
+        /* --- FIX: Mobile Responsiveness --- */
+        @media (max-width: 768px) {
+            .navbar-custom {
+                margin-left: 0;
+                width: 100%;
+            }
+            body.sidebar-collapsed .navbar-custom {
+                margin-left: 0;
+                width: 100%;
+            }
         }
 
         .navbar-brand {
@@ -49,8 +77,8 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container">
-            <a class="navbar-brand" href="/index.php">
+        <div class="container-fluid px-4"> <!-- Changed container to container-fluid for better alignment with sidebar -->
+            <a class="navbar-brand" href="">
                 <i class="fas fa-university me-2"></i>Campus Management System
             </a>
             
@@ -58,22 +86,10 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Added dummy menu items to maintain your structure if needed, or keep empty as per your snippet -->
+             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/auth/login.php">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-warning" href="auth/logout.php">
-                            <i class="fas fa-sign-out-alt me-1"></i>Logout
-                        </a>
-                    </li>
+                    <!-- Your nav items can go here -->
                 </ul>
             </div>
         </div>
