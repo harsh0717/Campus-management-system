@@ -1,10 +1,14 @@
+<!-- Bootstrap & FontAwesome CDNs (Included for preview to work) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 <style>
     /* Navbar Styles matching the University Theme */
     .navbar-custom {
         /* University Blue Gradient */
         background: linear-gradient(to right, #4e73df, #224abe);
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        height: 70px;
+        min-height: 70px; /* Use min-height instead of fixed height to allow expansion */
         z-index: 1030;
         
         /* Positioning to sit to the right of the Sidebar */
@@ -12,22 +16,43 @@
         top: 0;
         right: 0;
         left: 0;
-        margin-left: 260px; /* Sidebar Width */
+        margin-left: 260px; /* Sidebar Width - Default for PC */
         width: calc(100% - 260px);
         transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    /* Adjust Navbar when Sidebar is collapsed */
+    /* Adjust Navbar when Sidebar is collapsed (Desktop logic) */
     body.sidebar-collapsed .navbar-custom {
         margin-left: 70px;
         width: calc(100% - 70px);
     }
 
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
+    /* Mobile & Tablet Responsiveness */
+    /* BREAKPOINT: 991.98px covers Tablets (iPad vertical) and all Mobile devices */
+    @media (max-width: 991.98px) {
         .navbar-custom {
-            margin-left: 0;
-            width: 100%;
+            margin-left: 0 !important; /* Override desktop margin */
+            width: 100% !important;    /* Full width on mobile/tablet */
+            height: auto;              /* Allow height to grow when menu opens */
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        /* Adjust the spacing of the collapsed menu items on mobile */
+        .navbar-collapse {
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.1); /* Slight darken for contrast */
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        /* Center text on mobile for better touch target access */
+        .navbar-nav {
+            text-align: center;
+        }
+        
+        .nav-item {
+            margin-bottom: 5px;
         }
     }
 
@@ -42,6 +67,7 @@
         font-size: 0.9rem;
         transition: opacity 0.3s ease;
         padding: 0.5rem 1rem !important;
+        white-space: nowrap; /* Prevent text wrapping nicely */
     }
     
     .nav-link:hover {
@@ -64,6 +90,7 @@
             <i class="fas fa-university me-2"></i>Campus Management System
         </a>
         
+        <!-- Toggler for Mobile/Tablet -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -104,4 +131,8 @@
         </div>
     </div>
 </nav>
+<!-- Spacing to prevent content from hiding behind fixed navbar -->
 <br><br><br>
+
+<!-- Bootstrap JS (Included for preview to work) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
