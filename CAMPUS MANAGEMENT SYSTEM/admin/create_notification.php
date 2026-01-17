@@ -161,7 +161,7 @@
             </nav>
         </div>
         <div>
-            <a href="#" class="btn btn-white text-muted border-0 fw-bold shadow-sm rounded-pill px-4 bg-white hover-shadow">
+            <a href="notifications.php" class="btn btn-white text-muted border-0 fw-bold shadow-sm rounded-pill px-4 bg-white hover-shadow">
                 <i class="bi bi-arrow-left me-2"></i>Back to List
             </a>
         </div>
@@ -271,9 +271,10 @@
 
                         <!-- Actions -->
                         <div class="d-flex justify-content-end gap-3 pt-5 mt-3 border-top border-light">
-                            <button class="btn btn-light border fw-bold text-secondary px-4 py-2" type="reset">
+                            <!-- Update Cancel button to redirect to dashboard.php -->
+                            <a href="notifications  .php" class="btn btn-light border fw-bold text-secondary px-4 py-2">
                                 Cancel
-                            </button>
+                            </a>
                             <button class="btn btn-primary fw-bold shadow-lg px-5 py-3 text-uppercase" type="button" 
                                 style="background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); border: none; letter-spacing: 0.05em; border-radius: 12px;">
                                 <i class="bi bi-send-fill me-2"></i> Publish Notification

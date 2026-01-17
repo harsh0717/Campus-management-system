@@ -101,7 +101,7 @@
         </a>
         
         <!-- Notifications -->
-        <a href="create_notification.php" class="sidebar-link <?php echo $current_page == 'create_notification.php' ? 'active' : ''; ?>">
+        <a href="notifications.php" class="sidebar-link <?php echo $current_page == 'notifications.php'  ? 'active' : ''; ?>">
             <i class="fas fa-bell"></i> <span>Notifications</span>
         </a>
     </nav>
