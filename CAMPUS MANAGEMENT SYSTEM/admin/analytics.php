@@ -1,8 +1,7 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar.php'; ?>
-<?php include 'navbar.php'; ?>
 
-<!-- Custom CSS for the Dashboard -->
+<!-- Page Specific CSS -->
 <style>
     /* Card & Layout Styles */
     .dashboard-card {
@@ -18,7 +17,7 @@
         box-shadow: 0 15px 30px rgba(0,0,0,0.12);
     }
 
-    /* Vibrant Gradients for Icons */
+    /* Vibrant Gradients */
     .bg-gradient-primary { background: linear-gradient(135deg, #4e73df 0%, #224abe 100%); }
     .bg-gradient-success { background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%); }
     .bg-gradient-info    { background: linear-gradient(135deg, #36b9cc 0%, #258391 100%); }
@@ -31,97 +30,65 @@
         position: relative;
     }
 
-    /* Icon styling - Glassmorphism feel */
+    /* Icon styling */
     .icon-box {
-        width: 56px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 16px;
-        font-size: 1.5rem;
-        color: white;
+        width: 56px; height: 56px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 16px; font-size: 1.5rem; color: white;
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
     
     /* Section Titles */
     .section-title {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        font-weight: 800;
-        color: #4e73df;
-        display: flex;
-        align-items: center;
+        font-size: 0.8rem; text-transform: uppercase;
+        letter-spacing: 0.1em; font-weight: 800; color: #4e73df;
+        display: flex; align-items: center;
     }
     .section-title i {
-        background: #ebf3ff;
-        color: #4e73df;
-        padding: 6px;
-        border-radius: 6px;
-        margin-right: 10px;
+        background: #ebf3ff; color: #4e73df;
+        padding: 6px; border-radius: 6px; margin-right: 10px;
     }
 
     /* Table Styling */
+    .table-custom { min-width: 600px; }
     .table-custom thead th {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-weight: 700;
-        color: #8898aa;
-        background-color: #f8f9fe;
-        border-bottom: 1px solid #e9ecef;
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.08em; font-weight: 700; color: #8898aa;
+        background-color: #f8f9fe; border-bottom: 1px solid #e9ecef;
         padding: 1rem;
     }
     .table-custom tbody td {
-        vertical-align: middle;
-        padding: 1rem;
+        vertical-align: middle; padding: 1rem;
         border-bottom: 1px solid #f0f0f0;
     }
-    .table-custom tbody tr:last-child td {
-        border-bottom: none;
-    }
+    .table-custom tbody tr:last-child td { border-bottom: none; }
 
     /* Buttons */
     .btn-gradient {
         background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-        border: none;
-        color: white;
+        border: none; color: white;
         box-shadow: 0 4px 15px rgba(78, 115, 223, 0.4);
         transition: all 0.2s;
     }
     .btn-gradient:hover {
-        color: white;
-        transform: translateY(-2px);
+        color: white; transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(78, 115, 223, 0.6);
     }
     
     /* Action Button Styles */
     .btn-action {
-        width: 34px;
-        height: 34px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px;
-        transition: all 0.2s;
-        background-color: #f8f9fc;
-        color: #858796;
-        border: none;
-        text-decoration: none;
+        width: 34px; height: 34px;
+        display: inline-flex; align-items: center; justify-content: center;
+        border-radius: 10px; transition: all 0.2s;
+        background-color: #f8f9fc; color: #858796;
+        border: none; text-decoration: none;
     }
-    .btn-action:hover {
-        background-color: #eaecf4;
-        color: #4e73df;
-    }
-    .btn-action:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
+    .btn-action:hover { background-color: #eaecf4; color: #4e73df; }
+    .btn-action:disabled { opacity: 0.6; cursor: not-allowed; }
 </style>
 
-<!-- Main Content with Gradient Background -->
-<div class="container-fluid px-4 pb-5" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%); min-height: 100vh;">
+<!-- Main Content (Wrapper is opened in sidebar.php) -->
+<div class="container-fluid px-4 pb-5 flex-grow-1" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%);">
     
     <!-- 1. Page Header -->
     <div class="d-flex justify-content-between align-items-center pt-4 mb-5">
@@ -390,7 +357,6 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <!-- Chart.js Script -->

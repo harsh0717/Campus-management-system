@@ -8,15 +8,17 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Font Awesome (Optional, for icons) -->
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    
+    <!-- CORE LAYOUT STYLES -->
     <style>
         :root {
-            --primary-color: #4e73df; /* Updated to match sidebar primary */
-            --secondary-color: #224abe; /* Updated to match sidebar secondary */
-            
-            /* Sidebar Variables for Calculation */
+            --primary-color: #4e73df;
+            --secondary-color: #224abe;
             --sidebar-width: 260px;
             --sidebar-collapsed-width: 70px;
         }
@@ -27,69 +29,118 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
+        /* --- Navbar Styles --- */
         .navbar-custom {
-            /* Updated to match Sidebar Gradient */
             background: linear-gradient(to right, #4e73df, #224abe);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            
-            /* --- FIX: Push Header to right of Sidebar --- */
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1030;
+            height: 70px;
             margin-left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
-            transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* --- FIX: Adjust Header when Sidebar is collapsed --- */
+        .navbar-brand { font-weight: 700; letter-spacing: 0.5px; font-size: 1.1rem; }
+        
+        #sidebarToggleTop {
+            background: transparent; border: none; color: rgba(255,255,255,0.8);
+            font-size: 1.25rem; padding: 0 15px; transition: color 0.2s;
+        }
+        #sidebarToggleTop:hover { color: #fff; }
+
+        /* Sidebar Collapsed State (PC) */
         body.sidebar-collapsed .navbar-custom {
             margin-left: var(--sidebar-collapsed-width);
             width: calc(100% - var(--sidebar-collapsed-width));
         }
 
-        /* --- FIX: Mobile Responsiveness --- */
-        @media (max-width: 768px) {
-            .navbar-custom {
-                margin-left: 0;
-                width: 100%;
-            }
-            body.sidebar-collapsed .navbar-custom {
-                margin-left: 0;
-                width: 100%;
-            }
+        /* --- Sidebar CSS (Base) --- */
+        #sidebar-wrapper {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            background: linear-gradient(180deg, #4e73df 0%, #224abe 100%);
+            color: #fff;
+            z-index: 1040;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+            overflow-x: hidden;
+            display: flex; flex-direction: column;
         }
 
-        .navbar-brand {
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        .main-content {
+            transition: margin-left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin-left: var(--sidebar-width);
+            margin-top: 70px;
+            display: flex; flex-direction: column;
+            min-height: calc(100vh - 70px);
         }
-        
-        .nav-link {
-            font-weight: 500;
-            transition: opacity 0.3s ease;
+
+        /* Mobile Responsiveness */
+        @media (max-width: 991.98px) {
+            .navbar-custom { margin-left: 0; width: 100%; }
+            body.sidebar-collapsed .navbar-custom { margin-left: 0; width: 100%; }
+            .navbar-brand { font-size: 1rem; }
+            
+            #sidebar-wrapper { margin-left: -260px; }
+            .main-content { margin-left: 0; }
+            
+            body.sidebar-collapsed #sidebar-wrapper { margin-left: 0; box-shadow: 5px 0 20px rgba(0,0,0,0.2); }
         }
+
+        #sidebarOverlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; background: rgba(0,0,0,0.5);
+            z-index: 1035; backdrop-filter: blur(2px);
+        }
+        body.sidebar-collapsed #sidebarOverlay { display: block; }
+        @media (min-width: 992px) { body.sidebar-collapsed #sidebarOverlay { display: none; } }
         
-        .nav-link:hover {
-            opacity: 0.8;
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(to right, #4e73df, #224abe);
+            color: white; box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Overlay for Mobile (Click to close sidebar) -->
+    <div id="sidebarOverlay"></div>
+
+    <!-- 1. NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container-fluid px-4"> <!-- Changed container to container-fluid for better alignment with sidebar -->
-            <a class="navbar-brand" href="">
-                <i class="fas fa-university me-2"></i>Campus Management System
-            </a>
+        <div class="container-fluid px-2 px-lg-4"> 
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <div class="d-flex align-items-center">
+                <!-- Mobile Sidebar Toggle -->
+                <button id="sidebarToggleTop" class="d-lg-none me-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-university me-2"></i>
+                    <span class="d-none d-sm-inline">Campus Management System</span>
+                    <span class="d-inline d-sm-none">CMS</span>
+                </a>
+            </div>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-ellipsis-v text-white"></i>
             </button>
             
-            <!-- Added dummy menu items to maintain your structure if needed, or keep empty as per your snippet -->
              <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- Your nav items can go here -->
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bell"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i></a></li>
                 </ul>
             </div>
         </div>

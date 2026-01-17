@@ -1,8 +1,7 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar.php'; ?>
-<?php include 'navbar.php'; ?>
 
-<!-- Custom CSS (Matching Dashboard Theme) -->
+<!-- Page Specific CSS -->
 <style>
     /* Card & Layout Styles */
     .dashboard-card {
@@ -27,6 +26,9 @@
         box-shadow: 0 4px 15px rgba(78, 115, 223, 0.4);
         transition: all 0.2s;
         border-radius: 12px;
+        text-decoration: none; /* Added for link styling */
+        display: inline-flex; /* Ensure flex behavior for icon alignment */
+        align-items: center;
     }
     .btn-gradient:hover {
         color: white;
@@ -48,6 +50,7 @@
     }
 
     /* Table Styling */
+    .table-custom { min-width: 800px; } /* Ensure horizontal scroll on small devices */
     .table-custom thead th {
         font-size: 0.75rem;
         text-transform: uppercase;
@@ -103,8 +106,8 @@
     }
 </style>
 
-<!-- Main Content with Gradient Background -->
-<div class="container-fluid px-4 pb-5" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%); min-height: 100vh;">
+<!-- Main Content (Wrapper is opened in sidebar.php) -->
+<div class="container-fluid px-4 pb-5 flex-grow-1" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%);">
     
     <!-- 1. Page Header -->
     <div class="d-flex justify-content-between align-items-center pt-4 mb-5">
@@ -119,9 +122,9 @@
             </nav>
         </div>
         <div>
-            <button class="btn btn-gradient px-4 py-2 fw-bold">
+            <a href="add_course.php" class="btn btn-gradient px-4 py-2 fw-bold">
                 <i class="fas fa-plus me-2"></i> Add New Course
-            </button>
+            </a>
         </div>
     </div>
 

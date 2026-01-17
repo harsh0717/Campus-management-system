@@ -1,8 +1,7 @@
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar.php'; ?>
-<?php include 'navbar.php'; ?>
 
-<!-- Custom CSS for the Form Page -->
+<!-- Page Specific CSS -->
 <style>
     /* Card & Layout Styles */
     .dashboard-card {
@@ -146,7 +145,8 @@
     }
 </style>
 
-<main class="container-fluid px-4 pb-5" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%); min-height: 100vh;">
+<!-- Main Content (Wrapper is opened in sidebar.php) -->
+<div class="container-fluid px-4 pb-5 flex-grow-1" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%);">
     
     <!-- 1. Page Header -->
     <div class="d-flex justify-content-between align-items-center pt-4 mb-5">
@@ -284,6 +284,7 @@
             </div>
         </div>
     </div>
-</main>
+
+</div>
 
 <?php include '../includes/footer.php'; ?>
