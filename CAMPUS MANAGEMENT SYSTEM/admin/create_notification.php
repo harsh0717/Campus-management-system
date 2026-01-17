@@ -272,7 +272,7 @@
                         <!-- Actions -->
                         <div class="d-flex justify-content-end gap-3 pt-5 mt-3 border-top border-light">
                             <!-- Update Cancel button to redirect to dashboard.php -->
-                            <a href="notifications  .php" class="btn btn-light border fw-bold text-secondary px-4 py-2">
+                            <a href="notifications.php" class="btn btn-light border fw-bold text-secondary px-4 py-2">
                                 Cancel
                             </a>
                             <button class="btn btn-primary fw-bold shadow-lg px-5 py-3 text-uppercase" type="button" 
