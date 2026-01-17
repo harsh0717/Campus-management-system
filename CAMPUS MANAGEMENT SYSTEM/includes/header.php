@@ -133,9 +133,7 @@
                 </a>
             </div>
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="fas fa-ellipsis-v text-white"></i>
-            </button>
+            
             
              <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
