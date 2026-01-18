@@ -28,6 +28,7 @@
         box-shadow: var(--card-shadow);
         overflow: hidden;
         margin-bottom: 1.5rem;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .card-modern-header {
@@ -37,6 +38,8 @@
         justify-content: space-between;
         align-items: center;
         background: white;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+        gap: 10px;
     }
 
     .card-modern-title {
@@ -92,6 +95,7 @@
     .table-modern {
         width: 100%;
         margin-bottom: 0;
+        white-space: nowrap; /* Prevent wrapping on mobile for consistency */
     }
     .table-modern thead th {
         background: #f8f9fa;
@@ -122,11 +126,12 @@
         justify-content: center;
         font-size: 1.1rem;
         margin-right: 1rem;
+        flex-shrink: 0; /* Prevent shrinking */
     }
 
     /* Custom Marks Input */
     .marks-input {
-        width: 100px;
+        width: 80px; /* Slightly smaller for mobile fit */
         text-align: center;
         font-weight: 700;
         color: var(--primary-color);
@@ -149,6 +154,7 @@
         border: 1px solid #eef2f7;
         padding: 0.4rem 2rem 0.4rem 0.8rem;
         cursor: pointer;
+        min-width: 80px;
     }
     /* Dynamic Colors for Selects */
     .status-pass { background-color: #d1fae5; color: #047857; border-color: #a7f3d0; }
@@ -156,6 +162,36 @@
     .status-absent { background-color: #fef3c7; color: #b45309; border-color: #fde68a; }
     .status-default { background-color: #f3f4f6; color: #4b5563; }
 
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .page-header-title { font-size: 1.5rem; }
+        
+        /* Stack filters */
+        .col-md-3 { width: 100%; margin-bottom: 1rem; }
+        
+        /* Adjust footer buttons */
+        .card-footer {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch !important;
+        }
+        .card-footer .d-flex {
+            flex-direction: column;
+            width: 100%;
+        }
+        .card-footer button { width: 100%; }
+        
+        /* Header actions */
+        .card-modern-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .card-modern-header .d-flex {
+            margin-top: 0.5rem;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
 </style>
 
 <main class="container-fluid px-4 py-4">
@@ -180,7 +216,7 @@
         </div>
         <div class="card-body p-4">
             <form action="" method="GET" class="row g-3 align-items-end">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-12">
                     <label class="filter-label">Course</label>
                     <select class="form-select form-select-modern" id="courseSelect">
                         <option selected disabled>Select Course...</option>
@@ -190,7 +226,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-12">
                     <label class="filter-label">Semester</label>
                     <select class="form-select form-select-modern" id="semesterSelect">
                         <option selected disabled>Select Semester...</option>
@@ -200,7 +236,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-12">
                     <label class="filter-label">Exam Type</label>
                     <select class="form-select form-select-modern" id="examTypeSelect">
                         <option selected disabled>Select Exam...</option>
@@ -210,7 +246,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-12">
                     <button type="button" class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" style="background-color: var(--accent-color); border-color: var(--accent-color);">
                         <i class="fas fa-search me-2"></i> Load Students
                     </button>
@@ -224,12 +260,12 @@
         <div class="card-modern-header">
             <div class="d-flex flex-column">
                 <h6 class="card-modern-title mb-1">Student Marks Entry</h6>
-                <div class="d-flex align-items-center gap-2 small">
+                <div class="d-flex align-items-center gap-2 small flex-wrap">
                     <span class="badge bg-light text-dark border">CSE - Sem 3</span>
                     <span class="badge bg-light text-dark border">Final Exam</span>
                 </div>
             </div>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center mt-2 mt-md-0">
                  <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 px-3 py-2 rounded-pill">
                     <i class="fas fa-exclamation-circle me-2"></i>Not Submitted
                 </span>
@@ -370,7 +406,7 @@
         </div>
         
         <div class="card-footer bg-white py-4 d-flex justify-content-between align-items-center border-top-0">
-            <div class="text-muted small">
+            <div class="text-muted small mb-3 mb-md-0">
                 <i class="fas fa-info-circle me-1"></i> Grades are auto-calculated. Review before submitting.
             </div>
             <div class="d-flex gap-2">

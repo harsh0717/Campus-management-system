@@ -51,6 +51,7 @@
         font-weight: 600;
         margin-right: 0.5rem;
         transition: all 0.2s;
+        white-space: nowrap; /* Prevent text wrap in pills */
     }
     .nav-pills-custom .nav-link:hover {
         background: #f8f9fa;
@@ -105,12 +106,13 @@
     }
     
     /* Notification Content */
-    .notify-content { flex-grow: 1; }
+    .notify-content { flex-grow: 1; min-width: 0; /* Fix flex child overflow */ }
     .notify-title {
         font-size: 1.05rem;
         font-weight: 700;
         color: var(--secondary-color);
         margin-bottom: 0.3rem;
+        word-wrap: break-word;
     }
     .notify-desc {
         color: #6c757d;
@@ -124,6 +126,7 @@
         gap: 15px;
         font-size: 0.8rem;
         color: #adb5bd;
+        flex-wrap: wrap;
     }
     .notify-time { font-weight: 600; }
     
@@ -141,6 +144,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        white-space: nowrap;
     }
     .bg-soft-danger { background: rgba(231, 76, 60, 0.1); color: var(--danger-color); }
     .bg-soft-warning { background: rgba(241, 196, 15, 0.1); color: #f39c12; }
@@ -154,6 +158,7 @@
         background: none;
         border: none;
         cursor: pointer;
+        padding: 0.25rem;
     }
     .action-btn:hover { color: var(--primary-color); }
 
@@ -162,6 +167,59 @@
         text-align: center;
         padding: 3rem;
         color: #95a5a6;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 768px) {
+        .page-header-title { font-size: 1.5rem; }
+        
+        /* Stack Filters and Search */
+        .filter-section {
+            flex-direction: column;
+            align-items: stretch !important;
+            gap: 1rem;
+        }
+        
+        .nav-pills-custom {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 5px; /* Space for scrollbar */
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .search-container {
+            display: block !important; /* Show search on mobile */
+            width: 100%;
+        }
+        
+        .search-container input {
+            max-width: 100% !important;
+        }
+
+        /* Adjust Notification Item padding */
+        .notification-item {
+            padding: 1rem;
+            flex-wrap: wrap; /* Allow wrapping for very small screens if needed, mostly for meta */
+        }
+        
+        .notify-icon-box {
+            width: 40px;
+            height: 40px;
+            font-size: 1.1rem;
+            margin-right: 0.8rem;
+        }
+        
+        .notify-title { font-size: 1rem; }
+        .notify-desc { font-size: 0.9rem; }
+        
+        /* Adjust header actions alignment */
+        .header-actions {
+            margin-top: 1rem;
+            width: 100%;
+        }
+        .header-actions button {
+            width: 100%;
+        }
     }
 </style>
 
@@ -178,8 +236,8 @@
                 </ol>
             </nav>
         </div>
-        <div>
-            <button class="btn btn-light text-muted border bg-white shadow-sm" onclick="markAllRead()">
+        <div class="header-actions">
+            <button class="btn btn-light text-muted border bg-white shadow-sm w-100" onclick="markAllRead()">
                 <i class="bi bi-check2-all me-2"></i>Mark all as read
             </button>
         </div>
@@ -189,8 +247,8 @@
     <div class="row">
         <div class="col-lg-12">
             
-            <!-- Filters -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <!-- Filters & Search (Responsive Flex Container) -->
+            <div class="d-flex justify-content-between align-items-center mb-4 filter-section">
                 <div class="nav nav-pills nav-pills-custom" id="notification-tabs" role="tablist">
                     <button class="nav-link active" data-filter="all">All</button>
                     <button class="nav-link" data-filter="unread">Unread <span class="badge bg-danger rounded-pill ms-1" id="unread-count">2</span></button>
@@ -198,10 +256,10 @@
                     <button class="nav-link" data-filter="important">Important</button>
                 </div>
                 <!-- Search -->
-                <div class="d-none d-md-block">
+                <div class="search-container d-none d-md-block">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 border rounded-start-pill ps-3 text-muted"><i class="fas fa-search"></i></span>
-                        <input type="text" class="form-control border-start-0 border rounded-end-pill" placeholder="Search notifications..." style="max-width: 200px;">
+                        <input type="text" class="form-control border-start-0 border rounded-end-pill" placeholder="Search..." style="max-width: 200px;">
                     </div>
                 </div>
             </div>
@@ -235,7 +293,7 @@
                         </div>
                     </div>
 
-                     <!-- Item 2: Important (Unread - Added to show contrast) -->
+                     <!-- Item 2: Important (Unread) -->
                      <div class="notification-item unread" data-category="important unread">
                         <div class="notify-icon-box text-warning">
                             <i class="fas fa-calendar-alt"></i>

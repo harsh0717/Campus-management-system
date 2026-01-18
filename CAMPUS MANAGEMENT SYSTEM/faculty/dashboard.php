@@ -22,8 +22,15 @@
 
     /* --- Stats Cards --- */
     .stats-container {
-        margin-top: 2rem; /* Adjusted spacing since Hero is removed */
+        margin-top: 2rem;
         padding: 0 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .stats-container {
+            padding: 0 1rem;
+            margin-top: 1.5rem;
+        }
     }
 
     .stat-card {
@@ -79,6 +86,10 @@
     /* --- Content Sections --- */
     .content-section { padding: 2rem; }
     
+    @media (max-width: 768px) {
+        .content-section { padding: 1.5rem 1rem; }
+    }
+    
     .card-modern {
         background: white;
         border-radius: 16px;
@@ -86,6 +97,7 @@
         box-shadow: var(--card-shadow);
         overflow: hidden;
         height: 100%;
+        margin-bottom: 1rem; /* Spacing for stacking on mobile */
     }
 
     .card-modern-header {
@@ -95,6 +107,8 @@
         justify-content: space-between;
         align-items: center;
         background: white;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+        gap: 10px;
     }
 
     .card-modern-title {
@@ -114,6 +128,7 @@
         border-bottom: 1px solid #f8f9fa;
         align-items: center;
         transition: background 0.2s;
+        flex-wrap: wrap; /* Allow wrapping on mobile */
     }
     .timeline-item:last-child { border-bottom: none; }
     .timeline-item:hover { background: #fafbfc; }
@@ -123,8 +138,38 @@
     .duration-display { font-size: 0.75rem; color: #95a5a6; }
 
     .info-col { flex-grow: 1; padding: 0 1rem; }
+    
+    @media (max-width: 576px) {
+        .timeline-item {
+            padding: 1rem;
+            align-items: flex-start;
+        }
+        .time-col {
+            width: 100%;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-col {
+            padding: 0;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        .status-col {
+            width: 100%;
+            text-align: left !important;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .ms-3 {
+            margin-left: 0 !important;
+        }
+    }
+
     .course-title { font-weight: 600; color: var(--secondary-color); display: block; }
-    .course-details { font-size: 0.85rem; color: #7f8c8d; display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+    .course-details { font-size: 0.85rem; color: #7f8c8d; display: flex; gap: 10px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
     .badge-room { background: #f0f2f5; color: #555; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
 
     .status-col { min-width: 100px; text-align: right; }
@@ -153,6 +198,13 @@
         gap: 1rem;
         padding: 1.5rem;
     }
+    
+    @media (max-width: 480px) {
+        .action-grid {
+            grid-template-columns: 1fr; /* Stack actions on very small screens */
+        }
+    }
+
     .action-btn {
         display: flex;
         flex-direction: column;
@@ -188,7 +240,7 @@
     <div class="stats-container">
         <div class="row g-4">
             <!-- Card 1 -->
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-sm-6">
                 <div class="stat-card">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -205,7 +257,7 @@
                 </div>
             </div>
             <!-- Card 2 -->
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-sm-6">
                 <div class="stat-card green">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -222,7 +274,7 @@
                 </div>
             </div>
             <!-- Card 3 -->
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-sm-6">
                 <div class="stat-card orange">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -239,7 +291,7 @@
                 </div>
             </div>
             <!-- Card 4 -->
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-6 col-sm-6">
                 <div class="stat-card purple">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -289,7 +341,7 @@
                                     <i class="fas fa-check me-1"></i> Done
                                 </span>
                             </div>
-                            <div class="ms-3">
+                            <div class="ms-3 d-none d-sm-block">
                                 <a href="#" class="btn btn-sm btn-light border"><i class="fas fa-eye"></i></a>
                             </div>
                         </div>
@@ -308,7 +360,7 @@
                                 </div>
                             </div>
                             <div class="status-col">
-                                <a href="mark_attendance.php" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm">
+                                <a href="mark_attendance.php" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm w-100 w-sm-auto">
                                     Mark Attendance <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -332,7 +384,7 @@
                                     Upcoming
                                 </span>
                             </div>
-                            <div class="ms-3">
+                            <div class="ms-3 d-none d-sm-block">
                                 <button class="btn btn-sm btn-light border disabled"><i class="fas fa-clock"></i></button>
                             </div>
                         </div>

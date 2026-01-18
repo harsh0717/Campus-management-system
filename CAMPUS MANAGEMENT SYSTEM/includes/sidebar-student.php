@@ -20,7 +20,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        background: linear-gradient(180deg, #2c3e50 0%, #4ca1af 100%); 
+        /* Student Gradient */
+        background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%); 
         color: #fff;
         z-index: var(--z-sidebar);
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -243,7 +244,7 @@
 <div id="sidebar-wrapper">
     <div class="sidebar-brand">
         <div class="brand-text d-flex flex-column" style="line-height: 1.1;">
-            <span style="letter-spacing: 1px;">FACULTY</span>
+            <span style="letter-spacing: 1px;">STUDENT</span>
             <small style="font-size: 0.6rem; opacity: 0.6; letter-spacing: 2px;">PORTAL</small>
         </div>
         <!-- Desktop Toggle (Shrink) -->
@@ -253,25 +254,31 @@
     </div>
 
     <nav class="sidebar-nav">
-        <!-- Dashboard -->
+        <!-- Dashboard Link -->
         <a href="dashboard.php" class="sidebar-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>">
             <i class="fas fa-th-large"></i> <span>Dashboard</span>
         </a>
         
-        <div class="sidebar-heading">Teaching</div>
+        <!-- Group 1: Academics -->
+        <div class="sidebar-heading">Academics</div>
         
-        <a href="mark_attendance.php" class="sidebar-link <?php echo $current_page == 'mark_attendance.php' ? 'active' : ''; ?>">
-            <i class="fas fa-user-check"></i> <span>Mark Attendance</span>
+        <a href="attendance.php" class="sidebar-link <?php echo $current_page == 'attendance.php' ? 'active' : ''; ?>">
+            <i class="fas fa-calendar-alt"></i> <span>My Attendance</span>
         </a>
         
-        <a href="upload_results.php" class="sidebar-link <?php echo $current_page == 'upload_results.php' ? 'active' : ''; ?>">
-            <i class="fas fa-file-upload"></i> <span>Upload Results</span>
+        <a href="results.php" class="sidebar-link <?php echo $current_page == 'results.php' ? 'active' : ''; ?>">
+            <i class="fas fa-poll-h"></i> <span>Exam Results</span>
         </a>
         
-        <div class="sidebar-heading">Communication</div>
+        <!-- Group 2: Account -->
+        <div class="sidebar-heading">Account</div>
         
         <a href="notifications.php" class="sidebar-link <?php echo $current_page == 'notifications.php' ? 'active' : ''; ?>">
             <i class="fas fa-bell"></i> <span>Notifications</span>
+        </a>
+
+        <a href="profile.php" class="sidebar-link <?php echo $current_page == 'profile.php' ? 'active' : ''; ?>">
+            <i class="fas fa-user-circle"></i> <span>My Profile</span>
         </a>
     </nav>
 </div>
@@ -308,7 +315,7 @@
             // Save state preference only for Desktop
             if (window.innerWidth >= 992) {
                 const isCollapsed = body.classList.contains('sidebar-collapsed');
-                localStorage.setItem('faculty-sidebar-state', isCollapsed ? 'collapsed' : 'expanded');
+                localStorage.setItem('student-sidebar-state', isCollapsed ? 'collapsed' : 'expanded');
             }
         }
         
@@ -323,18 +330,17 @@
         if(mobileClose) mobileClose.addEventListener('click', closeSidebarMobile);
         if(overlay) overlay.addEventListener('click', closeSidebarMobile);
         
-        // If you have a toggle button in your header.php, ensure it has id="sidebarToggleTop" or similar
+        // If you have a toggle button in your header.php
         const externalToggle = document.getElementById('sidebarToggleTop');
         if(externalToggle) externalToggle.addEventListener('click', toggleSidebar);
 
         // Restore State on Load (Desktop Only)
-        // We do NOT restore state on mobile because we don't want it covering the screen on reload
         if (window.innerWidth >= 992) {
-            const state = localStorage.getItem('faculty-sidebar-state');
+            const state = localStorage.getItem('student-sidebar-state');
             if (state === 'collapsed') body.classList.add('sidebar-collapsed');
         }
         
-        // Handle Resize Events (Reset overlay if resizing from mobile to desktop)
+        // Handle Resize Events
         window.addEventListener('resize', function() {
             if (window.innerWidth >= 992) {
                 overlay.classList.remove('active');
@@ -344,5 +350,4 @@
 </script>
 
 <!-- START MAIN CONTENT WRAPPER -->
-<!-- This div usually wraps the rest of your page content -->
 <div class="main-content">

@@ -38,6 +38,8 @@
         justify-content: space-between;
         align-items: center;
         background: white;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
+        gap: 10px;
     }
 
     .card-modern-title {
@@ -83,6 +85,7 @@
     .table-modern {
         width: 100%;
         margin-bottom: 0;
+        white-space: nowrap; /* Prevent text wrapping inside table cells on mobile */
     }
     .table-modern thead th {
         background: #f8f9fa;
@@ -113,6 +116,7 @@
         font-size: 0.9rem;
         color: white;
         margin-right: 1rem;
+        flex-shrink: 0; /* Prevent avatar from shrinking */
     }
     .bg-gradient-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
     .bg-gradient-2 { background: linear-gradient(135deg, #2af598 0%, #009efd 100%); }
@@ -160,6 +164,23 @@
     }
     .breadcrumb-item a { color: var(--accent-color); text-decoration: none; }
     .breadcrumb-item.active { color: #95a5a6; }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .page-header-title { font-size: 1.5rem; }
+        .attendance-toggle { width: 100%; justify-content: space-between; }
+        .btn-custom { flex-grow: 1; justify-content: center; }
+        
+        .card-footer {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: stretch !important;
+        }
+        .card-footer button { width: 100%; }
+        
+        /* Adjust filter columns on mobile */
+        .col-md-3, .col-md-2 { width: 100%; margin-bottom: 1rem; }
+    }
 
 </style>
 
@@ -177,7 +198,7 @@
                 </ol>
             </nav>
         </div>
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-3 mt-3 mt-md-0">
              <div class="d-none d-md-flex align-items-center text-muted small me-2">
                 <i class="far fa-clock me-2"></i> <?php echo date('l, F j, Y'); ?>
             </div>
@@ -194,7 +215,7 @@
         </div>
         <div class="card-body p-4">
             <div class="row g-3 align-items-end">
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-6 col-12">
                     <label class="filter-label">Select Course</label>
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 text-muted ps-3" style="border-radius: 10px 0 0 10px; border-color: #eef2f7;"><i class="fas fa-book"></i></span>
@@ -205,25 +226,25 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6 col-6">
                     <label class="filter-label">Semester</label>
                     <select class="form-select form-select-modern">
                         <option selected>1st Semester</option>
                         <option>2nd Semester</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6 col-6">
                     <label class="filter-label">Section</label>
                     <select class="form-select form-select-modern">
                         <option selected>Section A</option>
                         <option>Section B</option>
                     </select>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-sm-6 col-12">
                     <label class="filter-label">Date</label>
                     <input type="date" class="form-control form-control-modern" value="<?php echo date('Y-m-d'); ?>">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 col-sm-12 col-12">
                     <button class="btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" style="background-color: var(--accent-color); border-color: var(--accent-color);">
                         <i class="fas fa-sync-alt me-2"></i>Load Students
                     </button>
@@ -241,7 +262,7 @@
             </div>
             
             <!-- Quick Actions Dropdown -->
-            <div class="dropdown">
+            <div class="dropdown mt-2 mt-md-0">
                 <button class="btn btn-light btn-sm border rounded-pill dropdown-toggle fw-bold text-muted px-3" type="button" id="bulkActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-check-double me-2"></i>Quick Actions
                 </button>
