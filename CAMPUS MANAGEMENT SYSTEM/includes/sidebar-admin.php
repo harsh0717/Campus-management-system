@@ -79,17 +79,17 @@
         <div class="sidebar-heading">Academic</div>
         
         <!-- Students -->
-        <a href="manage_students.php" class="sidebar-link <?php echo $current_page == 'manage_students.php' ? 'active' : ''; ?>">
+        <a href="manage_students.php" class="sidebar-link <?php echo $current_page == 'manage_students.php' ? 'active' : ''; echo $current_page == 'add_student.php' ? 'active' : ''; ?>">
             <i class="fas fa-user-graduate"></i> <span>Manage Students</span>
         </a>
         
         <!-- Faculty -->
-        <a href="manage_faculty.php" class="sidebar-link <?php echo $current_page == 'manage_faculty.php' ? 'active' : ''; ?>">
+        <a href="manage_faculty.php" class="sidebar-link <?php echo $current_page == 'manage_faculty.php' ? 'active' : ''; echo $current_page == 'add_faculty.php' ? 'active' : ''; ?>">
             <i class="fas fa-chalkboard-teacher"></i> <span>Manage Faculty</span>
         </a>
         
         <!-- Courses -->
-        <a href="manage_courses.php" class="sidebar-link <?php echo $current_page == 'manage_courses.php' ? 'active' : ''; ?>">
+        <a href="manage_courses.php" class="sidebar-link <?php echo $current_page == 'manage_courses.php' ? 'active' : ''; echo $current_page == 'add_course.php' ? 'active' : ''; ?>">
             <i class="fas fa-book-open"></i> <span>Course Catalog</span>
         </a>
         
@@ -101,7 +101,7 @@
         </a>
         
         <!-- Notifications -->
-        <a href="notifications.php" class="sidebar-link <?php echo $current_page == 'notifications.php'  ? 'active' : ''; ?>">
+        <a href="notifications.php" class="sidebar-link <?php echo $current_page == 'notifications.php'  ? 'active' : ''; echo $current_page == 'create_notification.php'  ? 'active' : ''; ?>">
             <i class="fas fa-bell"></i> <span>Notifications</span>
         </a>
     </nav>
