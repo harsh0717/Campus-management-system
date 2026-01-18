@@ -6,20 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Management System</title>
 
-    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
-    <!-- CORE LAYOUT STYLES -->
     <style>
         :root {
-            --primary-color: #4e73df;
-            --secondary-color: #224abe;
+            /* Updated Colors */
+            --primary-color: #2c3e50;
+            --secondary-color: #4ca1af;
             --sidebar-width: 260px;
             --sidebar-collapsed-width: 70px;
         }
@@ -35,7 +32,8 @@
 
         /* --- Navbar Styles --- */
         .navbar-custom {
-            background: linear-gradient(to right, #4e73df, #224abe);
+            /* Applied your gradient */
+            background: linear-gradient(90deg, #2c3e50 0%, #4ca1af 100%);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             position: fixed;
             top: 0;
@@ -79,7 +77,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: linear-gradient(180deg, #4e73df 0%, #224abe 100%);
+            /* Applied your gradient */
+            background: linear-gradient(180deg, #2c3e50 0%, #4ca1af 100%);
             color: #fff;
             z-index: 1040;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -137,14 +136,17 @@
             height: 100vh;
             background: rgba(0, 0, 0, 0.5);
             z-index: 1035;
-            backdrop-filter: blur(2px);
+            /* Removed blur from here to fix your issue */
         }
 
+        /* Toggle blur ONLY when needed (e.g., when sidebar is active on mobile) */
         body.sidebar-collapsed #sidebarOverlay {
             display: block;
+            backdrop-filter: blur(2px); 
         }
 
         @media (min-width: 992px) {
+            /* Disable blur/overlay on Desktop even if collapsed */
             body.sidebar-collapsed #sidebarOverlay {
                 display: none;
             }
@@ -152,7 +154,8 @@
 
         /* Footer */
         .main-footer {
-            background: linear-gradient(to right, #4e73df, #224abe);
+            /* Applied your gradient */
+            background: linear-gradient(180deg, #2c3e50 0%, #4ca1af 100%);
             color: white;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
             margin-top: auto;
@@ -162,19 +165,14 @@
 
 <body>
 
-    <!-- Overlay for Mobile (Click to close sidebar) -->
     <div id="sidebarOverlay"></div>
 
-    <!-- 1. NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container-fluid px-2 px-lg-4">
-
             <div class="d-flex align-items-center">
-                <!-- Mobile Sidebar Toggle -->
                 <button id="sidebarToggleTop" class="d-lg-none me-2">
                     <i class="fas fa-bars"></i>
                 </button>
-
                 <a class="navbar-brand" href="#">
                     <i class="fas fa-university me-2"></i>
                     <span class="d-none d-sm-inline">Campus Management System</span>

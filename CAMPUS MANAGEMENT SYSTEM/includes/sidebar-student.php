@@ -157,6 +157,7 @@
     /* --- RESPONSIVE LOGIC --- */
 
     /* A. DESKTOP MODE (min-width: 992px) */
+    /* A. DESKTOP MODE (min-width: 992px) */
     @media (min-width: 992px) {
         /* Collapsed State Logic */
         body.sidebar-collapsed #sidebar-wrapper {
@@ -167,12 +168,13 @@
             margin-left: var(--sidebar-collapsed-width) !important;
         }
         
+        /* FIX: Added !important to override Bootstrap 'd-flex' */
         body.sidebar-collapsed .brand-text,
         body.sidebar-collapsed .sidebar-link span,
         body.sidebar-collapsed .sidebar-heading {
             opacity: 0;
             pointer-events: none;
-            display: none; /* Helps remove layout space */
+            display: none !important; /* Forces text to hide immediately */
         }
 
         body.sidebar-collapsed .sidebar-link {
@@ -189,8 +191,14 @@
         }
         
         body.sidebar-collapsed .sidebar-brand {
-            justify-content: center;
+            justify-content: center !important; /* Centers the icon */
             padding: 0;
+            overflow: hidden; /* FIX: Cuts off anything that tries to stick out */
+        }
+        
+        body.sidebar-collapsed #sidebarToggle {
+            margin-left: 0; 
+            margin-right: 0;
         }
         
         /* Ensure overlay is never shown on desktop */
