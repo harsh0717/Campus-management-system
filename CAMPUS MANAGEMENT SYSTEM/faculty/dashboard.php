@@ -1,161 +1,297 @@
 <?php include '../includes/header.php'; ?>
-<?php include '../includes/sidebar.php'; ?>
+<?php include '../includes/sidebar-faculty.php'; ?>
 
-<!-- MAIN CONTENT -->
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+<!-- Page Specific CSS -->
+<style>
     
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
-        <div>
-            <h1 class="h2">Faculty Dashboard</h1>
-            <p class="text-muted mb-0">Hello, Prof. Smith! Manage your classes and students.</p>
+    .dashboard-header {
+        background: #fff;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid #eef2f7;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #34495e;
+        margin-bottom: 0.25rem;
+    }
+    .welcome-text p {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    /* 3. Stats Cards - "International CMS Style" */
+    .stat-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid #eef2f7;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    /* Colored top accent lines */
+    .stat-card.blue { border-top: 4px solid #3498db; }
+    .stat-card.green { border-top: 4px solid #2ecc71; }
+    .stat-card.orange { border-top: 4px solid #f39c12; }
+    .stat-card.purple { border-top: 4px solid #9b59b6; }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    .bg-light-blue { background: #eaf6fd; color: #3498db; }
+    .bg-light-green { background: #eafaf1; color: #2ecc71; }
+    .bg-light-orange { background: #fef5e7; color: #f39c12; }
+    .bg-light-purple { background: #f5eef8; color: #9b59b6; }
+
+    .stat-value {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+    }
+    .stat-label {
+        color: #95a5a6;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* 4. Content Sections */
+    .content-card {
+        background: #fff;
+        border-radius: 12px;
+        border: 1px solid #eef2f7;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+    .card-head {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid #f1f3f6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fdfdfe;
+    }
+    .card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #34495e;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+    .card-title i { margin-right: 10px; color: #3498db; }
+
+    /* Table Styling */
+    .table-modern {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .table-modern thead th {
+        background: #f8f9fa;
+        color: #7f8c8d;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        padding: 1rem 1.5rem;
+        border-bottom: 2px solid #eef2f7;
+    }
+    .table-modern tbody td {
+        padding: 1.25rem 1.5rem;
+        vertical-align: middle;
+        color: #555;
+        border-bottom: 1px solid #f1f3f6;
+        font-size: 0.95rem;
+    }
+    .table-modern tbody tr:last-child td { border-bottom: none; }
+    .table-modern tbody tr:hover { background-color: #fafbfd; }
+
+    /* Action Buttons */
+    .btn-action-sm {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+    .btn-soft-primary { background: #eaf6fd; color: #3498db; border: none; font-weight: 600; }
+    .btn-soft-primary:hover { background: #3498db; color: #fff; }
+
+    /* Notification List Item */
+    .notify-item {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f1f3f6;
+        transition: background 0.2s;
+        text-decoration: none;
+        display: block;
+    }
+    .notify-item:last-child { border-bottom: none; }
+    .notify-item:hover { background-color: #fafbfd; }
+    .notify-title { font-weight: 600; color: #2c3e50; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .notify-meta { font-size: 0.8rem; color: #95a5a6; display: flex; align-items: center; }
+    .notify-meta i { margin-right: 5px; font-size: 0.7rem; }
+
+</style>
+
+<!-- Main Content Wrapper (Opened in sidebar.php) -->
+<!-- The .main-content class in faculty_sidebar.php handles the margin transition -->
+<div class="container-fluid p-0" style="background-color: #f4f6f9; min-height: 100vh;">
+    
+    <!-- 1. Page Header Section -->
+    <div class="dashboard-header">
+        <div class="welcome-text">
+            <h1>Faculty Dashboard</h1>
+            <p>Welcome back, Prof. Smith! Here is your daily academic overview.</p>
         </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <span class="badge bg-primary d-flex align-items-center me-3 px-3">
-                <i class="fas fa-calendar-day me-2"></i> 2 Classes Scheduled Today
-            </span>
-            <button type="button" class="btn btn-sm btn-outline-primary">
-                <i class="fas fa-calendar-week me-1"></i> View Timetable
+        <div class="d-flex gap-3">
+            <button class="btn btn-outline-secondary d-flex align-items-center bg-white shadow-sm border-0">
+                <i class="fas fa-calendar-alt me-2 text-primary"></i>
+                <span class="fw-bold text-dark"><?php echo date('F j, Y'); ?></span>
             </button>
+            <a href="mark_attendance.php" class="btn btn-primary d-flex align-items-center shadow-sm px-4 fw-bold">
+                <i class="fas fa-plus-circle me-2"></i> Mark Today's Attendance
+            </a>
         </div>
     </div>
 
-    <!-- Section 1: Overview Cards -->
-    <div class="row g-4 mb-4">
-        <!-- Card 1: Assigned Courses -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card shadow-sm border-0 border-start border-4 border-primary h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div class="text-muted small text-uppercase fw-bold">Assigned Courses</div>
-                        <i class="fas fa-book-reader text-primary fa-lg opacity-50"></i>
+    <div class="px-4 pb-5">
+        <!-- 2. Stats Grid -->
+        <div class="row g-4 mb-5">
+            <!-- Card 1 -->
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card blue">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-value">4</div>
+                            <div class="stat-label">Assigned Courses</div>
+                        </div>
+                        <div class="stat-icon bg-light-blue">
+                            <i class="fas fa-book"></i>
+                        </div>
                     </div>
-                    <div class="h3 fw-bold mb-1">4</div>
-                    <small class="text-muted">Active this semester</small>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card green">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-value">145</div>
+                            <div class="stat-label">Total Students</div>
+                        </div>
+                        <div class="stat-icon bg-light-green">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card orange">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-value">2</div>
+                            <div class="stat-label">Classes Today</div>
+                        </div>
+                        <div class="stat-icon bg-light-orange">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card purple">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Pending Reviews</div>
+                        </div>
+                        <div class="stat-icon bg-light-purple">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Card 2: Total Students -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card shadow-sm border-0 border-start border-4 border-success h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div class="text-muted small text-uppercase fw-bold">Total Students</div>
-                        <i class="fas fa-users text-success fa-lg opacity-50"></i>
+        <div class="row g-4">
+            <!-- 3. Upcoming Schedule Table (Left Large Column) -->
+            <div class="col-lg-8">
+                <div class="content-card h-100">
+                    <div class="card-head">
+                        <h3 class="card-title"><i class="fas fa-clock"></i> Today's Schedule</h3>
+                        <a href="#" class="btn btn-sm btn-light text-muted fw-bold">View Full Timetable</a>
                     </div>
-                    <div class="h3 fw-bold mb-1">145</div>
-                    <small class="text-muted">Across all courses</small>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3: Today's Classes -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card shadow-sm border-0 border-start border-4 border-warning h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div class="text-muted small text-uppercase fw-bold">Today's Classes</div>
-                        <i class="fas fa-chalkboard-teacher text-warning fa-lg opacity-50"></i>
-                    </div>
-                    <div class="h3 fw-bold mb-1">2</div>
-                    <small class="text-danger fw-bold">
-                        <i class="fas fa-clock me-1"></i> Next in 30 mins
-                    </small>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4: Pending Results -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card shadow-sm border-0 border-start border-4 border-danger h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <div class="text-muted small text-uppercase fw-bold">Pending Results</div>
-                        <i class="fas fa-file-signature text-danger fa-lg opacity-50"></i>
-                    </div>
-                    <div class="h3 fw-bold mb-1">1</div>
-                    <small class="text-muted">Mid-term evaluation</small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        <!-- Left Column: Assigned Courses List -->
-        <div class="col-lg-8">
-            
-            <!-- Section 2: Assigned Courses List -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 fw-bold text-dark"><i class="fas fa-list me-2 text-primary"></i>Assigned Courses</h6>
-                    <a href="#" class="text-decoration-none small fw-bold">View All</a>
-                </div>
-                <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
+                        <table class="table-modern">
+                            <thead>
                                 <tr>
-                                    <th class="ps-4">Course Name</th>
-                                    <th>Sem</th>
-                                    <th>Dept</th>
+                                    <th>Time</th>
+                                    <th>Course</th>
+                                    <th>Room</th>
                                     <th>Status</th>
-                                    <th class="text-end pe-4">Quick Actions</th>
+                                    <th class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Course 1 -->
                                 <tr>
-                                    <td class="ps-4">
-                                        <div class="fw-bold text-dark">Intro to Programming</div>
-                                        <div class="small text-muted">CS101</div>
+                                    <td class="fw-bold text-dark">09:00 AM - 10:30 AM</td>
+                                    <td>
+                                        <div class="fw-bold">CS101 - Intro to Programming</div>
+                                        <div class="small text-muted">Section A</div>
                                     </td>
-                                    <td>1st</td>
-                                    <td>CS</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-outline-info me-1" title="Mark Attendance">
-                                            <i class="fas fa-check-circle"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-success" title="Upload Results">
-                                            <i class="fas fa-upload"></i>
-                                        </button>
+                                    <td><span class="badge bg-light text-dark border">Lab 304</span></td>
+                                    <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Completed</span></td>
+                                    <td class="text-end">
+                                        <a href="mark_attendance.php" class="btn btn-action-sm btn-soft-primary">View</a>
                                     </td>
                                 </tr>
-                                <!-- Course 2 -->
                                 <tr>
-                                    <td class="ps-4">
-                                        <div class="fw-bold text-dark">Data Structures</div>
-                                        <div class="small text-muted">CS202</div>
+                                    <td class="fw-bold text-dark">11:00 AM - 12:30 PM</td>
+                                    <td>
+                                        <div class="fw-bold">CS202 - Data Structures</div>
+                                        <div class="small text-muted">Section B</div>
                                     </td>
-                                    <td>2nd</td>
-                                    <td>CS</td>
-                                    <td><span class="badge bg-success">Active</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-outline-info me-1" title="Mark Attendance">
-                                            <i class="fas fa-check-circle"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-success" title="Upload Results">
-                                            <i class="fas fa-upload"></i>
-                                        </button>
+                                    <td><span class="badge bg-light text-dark border">Room 102</span></td>
+                                    <td><span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3">Upcoming</span></td>
+                                    <td class="text-end">
+                                        <a href="mark_attendance.php" class="btn btn-action-sm btn-soft-primary">Mark Attendance</a>
                                     </td>
                                 </tr>
-                                <!-- Course 3 -->
                                 <tr>
-                                    <td class="ps-4">
-                                        <div class="fw-bold text-dark">Web Development</div>
-                                        <div class="small text-muted">CS305</div>
+                                    <td class="fw-bold text-dark">02:00 PM - 03:30 PM</td>
+                                    <td>
+                                        <div class="fw-bold">CS305 - Web Development</div>
+                                        <div class="small text-muted">Section A</div>
                                     </td>
-                                    <td>3rd</td>
-                                    <td>CS</td>
-                                    <td><span class="badge bg-warning text-dark">Upcoming</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-sm btn-outline-secondary disabled me-1">
-                                            <i class="fas fa-check-circle"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-secondary disabled">
-                                            <i class="fas fa-upload"></i>
-                                        </button>
+                                    <td><span class="badge bg-light text-dark border">Lab 201</span></td>
+                                    <td><span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3">Scheduled</span></td>
+                                    <td class="text-end">
+                                        <button class="btn btn-action-sm btn-soft-primary disabled">Wait</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -163,65 +299,52 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Right Column: Quick Actions & Notifications -->
-        <div class="col-lg-4">
-            
-            <!-- Section 3: Quick Actions -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 fw-bold text-dark"><i class="fas fa-bolt me-2 text-warning"></i>Quick Actions</h6>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-info text-start">
-                            <i class="fas fa-calendar-check me-2"></i> Mark Attendance
-                        </button>
-                        <button class="btn btn-outline-success text-start">
-                            <i class="fas fa-poll-h me-2"></i> Upload Results
-                        </button>
-                        <button class="btn btn-outline-primary text-start">
-                            <i class="fas fa-file-alt me-2"></i> Generate Reports
-                        </button>
+            <!-- 4. Notifications & Quick Links (Right Small Column) -->
+            <div class="col-lg-4">
+                <!-- Notifications -->
+                <div class="content-card mb-4">
+                    <div class="card-head">
+                        <h3 class="card-title"><i class="fas fa-bell"></i> Latest Updates</h3>
+                    </div>
+                    <div class="notification-list">
+                        <a href="#" class="notify-item">
+                            <div class="notify-title">Faculty Meeting Rescheduled</div>
+                            <div class="notify-meta"><i class="far fa-clock"></i> 2 hours ago</div>
+                        </a>
+                        <a href="#" class="notify-item">
+                            <div class="notify-title">Submit Mid-term Grades</div>
+                            <div class="notify-meta"><i class="far fa-clock"></i> Yesterday</div>
+                        </a>
+                        <a href="#" class="notify-item">
+                            <div class="notify-title">System Maintenance Alert</div>
+                            <div class="notify-meta"><i class="far fa-clock"></i> 2 days ago</div>
+                        </a>
+                    </div>
+                    <div class="p-3 text-center border-top">
+                        <a href="notifications.php" class="text-decoration-none fw-bold small text-primary">View All Notifications</a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Section 4: Notifications -->
-            <div class="card shadow-sm">
-                <div class="card-header bg-white py-3">
-                    <h6 class="m-0 fw-bold text-dark"><i class="fas fa-bell me-2 text-info"></i>Notifications</h6>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action py-3">
-                        <div class="d-flex w-100 justify-content-between align-items-center mb-1">
-                            <strong class="text-dark">Exam Schedule</strong>
-                            <small class="text-muted">Today</small>
+                <!-- Quick Tools -->
+                <div class="content-card">
+                    <div class="card-head">
+                        <h3 class="card-title"><i class="fas fa-tools"></i> Quick Tools</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="d-grid gap-3">
+                            <a href="upload_results.php" class="btn btn-outline-dark text-start p-3 border-2" style="border-radius: 10px;">
+                                <i class="fas fa-file-upload me-2 text-success"></i> Upload Exam Results
+                            </a>
+                            <a href="#" class="btn btn-outline-dark text-start p-3 border-2" style="border-radius: 10px;">
+                                <i class="fas fa-envelope me-2 text-warning"></i> Email Students
+                            </a>
                         </div>
-                        <p class="mb-1 text-secondary small">Final exam dates for Semester 1 have been announced.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3">
-                        <div class="d-flex w-100 justify-content-between align-items-center mb-1">
-                            <strong class="text-dark">Dept. Meeting</strong>
-                            <small class="text-muted">Yesterday</small>
-                        </div>
-                        <p class="mb-1 text-secondary small">Monthly faculty meeting is scheduled for Friday at 3 PM.</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3">
-                        <div class="d-flex w-100 justify-content-between align-items-center mb-1">
-                            <strong class="text-dark">System Update</strong>
-                            <small class="text-muted">2 days ago</small>
-                        </div>
-                        <p class="mb-1 text-secondary small">The grading portal will be down for maintenance on Sunday.</p>
-                    </a>
-                </div>
-                <div class="card-footer bg-white text-center py-2">
-                    <a href="#" class="text-decoration-none small">View All Notifications</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>
 
 <?php include '../includes/footer.php'; ?>

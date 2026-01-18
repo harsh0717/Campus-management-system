@@ -1,8 +1,9 @@
 <?php include '../includes/header.php'; ?>
-<?php include '../includes/sidebar.php'; ?>
+<?php include '../includes/sidebar-faculty.php'; ?>
 
 <!-- MAIN CONTENT -->
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+<!-- FIX: Removed 'col-md-9 ms-sm-auto' to allow sidebar CSS to control margins -->
+<main class="container-fluid px-4 py-4">
     
     <!-- Page Header -->
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
@@ -163,4 +164,8 @@
     });
 </script>
 
-<?php include '../includes/footer.php'; ?>
+<?php 
+// NOTE: We do not need to manually close the .main-content div here if your footer includes standard closing tags, 
+// but if your footer is simple, you might need a </div> here.
+include '../includes/footer.php'; 
+?>
