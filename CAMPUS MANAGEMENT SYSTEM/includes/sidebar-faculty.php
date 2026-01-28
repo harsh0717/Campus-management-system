@@ -294,6 +294,12 @@
         <a href="notifications.php" class="sidebar-link <?php echo $current_page == 'notifications.php' ? 'active' : ''; ?>">
             <i class="fas fa-bell"></i> <span>Notifications</span>
         </a>
+
+        <div class="sidebar-heading">Logout</div>
+        
+        <a href="../auth/logout.php" class="sidebar-link <?php echo $current_page == '../auth/logout.php'  ? 'active' : ''; ?>">
+            <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </a>
     </nav>
 </div>
 

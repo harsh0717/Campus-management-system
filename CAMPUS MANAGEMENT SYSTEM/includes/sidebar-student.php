@@ -288,6 +288,12 @@
         <a href="profile.php" class="sidebar-link <?php echo $current_page == 'profile.php' ? 'active' : ''; ?>">
             <i class="fas fa-user-circle"></i> <span>My Profile</span>
         </a>
+
+        <div class="sidebar-heading">Logout</div>
+        
+        <a href="../auth/logout.php" class="sidebar-link <?php echo $current_page == '../auth/logout.php'  ? 'active' : ''; ?>">
+            <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+        </a>
     </nav>
 </div>
 
