@@ -1,0 +1,55 @@
+CAMPUS_MANAGEMENT_SYSTEM/
+│
+├── admin/                         # Admin pages (UI + backend later)
+│   ├── dashboard.php
+│   ├── manage_students.php
+│   ├── manage_faculty.php
+│   ├── manage_courses.php
+│   ├── analytics.php
+│   ├── notifications.php
+│   ├── create_notification.php
+│   ├── add_student.php
+│   ├── add_faculty.php
+│   └── add_course.php
+│
+├── faculty/                       # Faculty pages
+│   ├── dashboard.php
+│   ├── mark_attendance.php
+│   ├── upload_results.php
+│   └── notifications.php
+│
+├── student/                       # Student pages
+│   ├── dashboard.php
+│   ├── attendance.php
+│   ├── results.php
+│   └── notifications.php
+│
+├── auth/                          # Authentication (backend)
+│   ├── login.php                  # Login form + logic
+│   ├── logout.php                 # Session destroy
+│   └── auth_check.php             # Role/session protection (later)
+│
+├── includes/                      # Shared layout files
+│   ├── header.php
+│   ├── footer.php
+│   ├── sidebar-admin.php
+│   ├── sidebar-faculty.php
+│   └── sidebar-student.php
+│
+├── config/                        # Backend configuration
+│   ├── db.php                     # Database connection (Day 2)
+│   └── config.php                 # Constants, base URL, etc. (later)
+│
+├── database/                      # Database-related files
+│   └── schema.sql                 # All CREATE TABLE statements
+│
+├── assets/                        # Static files
+│   ├── css/
+│   │   └── style.css              # Optional custom CSS
+│   ├── js/
+│   │   └── main.js                # Optional JS
+│   └── images/
+│
+├── index.php                      # Landing page
+├── .htaccess                      # URL/security config (optional)
+└── README.md                      # Project description
