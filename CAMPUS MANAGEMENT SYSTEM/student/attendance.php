@@ -1,3 +1,11 @@
+<?php
+include '../auth/auth_check.php';
+
+if ($_SESSION['role'] !== 'faculty') {
+    header("Location: ../auth/login.php");
+    exit;
+}
+?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar-student.php'; ?>
 

@@ -1,5 +1,14 @@
+<?php
+include '../auth/auth_check.php';
+
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: ../auth/login.php");
+    exit;
+}
+?>
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar-admin.php'; ?>
+
 
 <!-- Page Specific CSS -->
 <style>
