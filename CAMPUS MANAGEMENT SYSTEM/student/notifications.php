@@ -1,7 +1,7 @@
 <?php
 include '../auth/auth_check.php';
 
-if ($_SESSION['role'] !== 'faculty') {
+if ($_SESSION['role'] !== 'student') {
     header("Location: ../auth/login.php");
     exit;
 }

@@ -32,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../admin/dashboard.php");
             } elseif ($user['role'] === 'faculty') {
                 header("Location: ../faculty/dashboard.php");
-            } else {
+            } elseif ($user['role'] === 'student') {
                 header("Location: ../student/dashboard.php");
+            } else {
+                header("Location: ../index.php");
             }
             exit;
-
         } else {
             $error = "Invalid password";
         }
-
     } else {
         $error = "User not found or role mismatch";
     }
@@ -49,11 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Campus Management System</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
@@ -61,9 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <style>
         /* Synced with Footer/Header Theme Colors */
         :root {
-            --primary-color: #2c3e50; /* Deep University Blue */
-            --accent-color: #4ca1af;  /* Golden Accent */
-            --bg-soft: #f4f7f9;       /* Light grey-blue background */
+            --primary-color: #2c3e50;
+            /* Deep University Blue */
+            --accent-color: #4ca1af;
+            /* Golden Accent */
+            --bg-soft: #f4f7f9;
+            /* Light grey-blue background */
         }
 
         body {
@@ -150,7 +154,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .btn-login:hover {
             background-color: #0a3b8c;
             transform: translateY(-2px);
-            color: var(--accent-color); /* Hover effect using accent color */
+            color: var(--accent-color);
+            /* Hover effect using accent color */
         }
 
         .text-muted-link {
@@ -163,85 +168,106 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
 <body>
 
-<div class="login-wrapper">
-    <div class="card login-card">
-        <div class="login-header">
-            <div class="login-icon">
-                <i class="fas fa-user-graduate"></i>
+    <div class="login-wrapper">
+        <div class="card login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h4 class="mb-0 fw-bold">System Login</h4>
+                <p class="mb-0 small opacity-75">Please verify your identity</p>
             </div>
-            <h4 class="mb-0 fw-bold">System Login</h4>
-            <p class="mb-0 small opacity-75">Please verify your identity</p>
-        </div>
 
-        <div class="form-section">
-            <form action="" method="POST">
-                <div class="mb-3">
-                    <label for="role" class="form-label fw-bold small">Select Role</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-light"><i class="fas fa-users-cog"></i></span>
-                        <select class="form-select" id="role" name="role" required>
-                            <option value="" selected disabled>Choose your role...</option>
-                            <option value="student">Student</option>
-                            <option value="faculty">Faculty</option>
-                            <option value="admin">Administrator</option>
-                        </select>
+            <div class="form-section">
+                <?php if (!empty($error)) : ?>
+                    <div class="alert alert-danger alert-dismissible fade show text-center shadow-sm" role="alert" id="errorAlert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <?php echo $error; ?>
                     </div>
-                </div>
+                <?php endif; ?>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label fw-bold small">Email Address</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="name@university.edu" required>
+                <form action="" method="POST">
+                    <div class="mb-3">
+                        <label for="role" class="form-label fw-bold small">Select Role</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-users-cog"></i></span>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="" selected disabled>Choose your role...</option>
+                                <option value="student">Student</option>
+                                <option value="faculty">Faculty</option>
+                                <option value="admin">Administrator</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mb-4">
-                    <label for="password" class="form-label fw-bold small">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-light"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required style="border-right: none;">
-                        <span class="input-group-text bg-white" id="togglePassword" style="border-left: none;">
-                            <i class="fas fa-eye text-muted" id="eyeIcon"></i>
-                        </span>
+                    <div class="mb-3">
+                        <label for="email" class="form-label fw-bold small">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@university.edu" required>
+                        </div>
                     </div>
-                </div>
 
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-login shadow-sm">
-                        <i class="fas fa-sign-in-alt me-2"></i> Secure Login
-                    </button>
-                    <button type="reset" class="btn btn-outline-secondary btn-sm mt-1 border-0">
-                        Reset Fields
-                    </button>
-                </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-bold small">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required style="border-right: none;">
+                            <span class="input-group-text bg-white" id="togglePassword" style="border-left: none;">
+                                <i class="fas fa-eye text-muted" id="eyeIcon"></i>
+                            </span>
+                        </div>
+                    </div>
 
-                <div class="text-center mt-4">
-                    <a href="../index.php" class="text-decoration-none small text-muted-link">
-                        <i class="fas fa-arrow-left me-1"></i> Back to Home
-                    </a>
-                </div>
-            </form>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-login shadow-sm">
+                            <i class="fas fa-sign-in-alt me-2"></i> Secure Login
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary btn-sm mt-1 border-0">
+                            Reset Fields
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <a href="../index.php" class="text-decoration-none small text-muted-link">
+                            <i class="fas fa-arrow-left me-1"></i> Back to Home
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const togglePassword = document.querySelector('#togglePassword');
-        const passwordInput = document.querySelector('#password');
-        const eyeIcon = document.querySelector('#eyeIcon');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const passwordInput = document.querySelector('#password');
+            const eyeIcon = document.querySelector('#eyeIcon');
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            eyeIcon.classList.toggle('fa-eye');
-            eyeIcon.classList.toggle('fa-eye-slash');
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                eyeIcon.classList.toggle('fa-eye');
+                eyeIcon.classList.toggle('fa-eye-slash');
+            });
         });
-    });
-</script>
+    </script>
+
+    <script>
+        // Auto hide error message after 4 seconds
+        setTimeout(() => {
+            const alert = document.getElementById('errorAlert');
+            if (alert) {
+                alert.classList.remove('show');
+                alert.classList.add('fade');
+                setTimeout(() => alert.remove(), 500);
+            }
+        }, 4000);
+    </script>
 
 </body>
+
 </html>
