@@ -1,2 +1,3 @@
 <?php
-echo password_hash("1234", PASSWORD_DEFAULT);
+$a =""; // Replace "your_password_here" with the actual password
+echo password_hash($a, PASSWORD_DEFAULT);
