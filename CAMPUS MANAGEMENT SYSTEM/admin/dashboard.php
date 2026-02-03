@@ -63,16 +63,25 @@ if ($_SESSION['role'] !== 'admin') {
 <!-- Main Content (Wrapper is opened in sidebar.php) -->
 <div class="container-fluid px-4 pb-5 flex-grow-1" style="background: linear-gradient(135deg, #eff3f9 0%, #dce4f1 100%);">
     
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center pt-4 mb-5">
-        <div>
-            <h1 class="h2 fw-bold text-dark mb-1">Admin Dashboard</h1>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted small">Home</a></li>
-                    <li class="breadcrumb-item active small" aria-current="page">Overview</li>
-                </ol>
-            </nav>
+    <!-- Page Header (Modern Gradient Card) -->
+    <div class="mb-5 pt-4">
+        <div class="card border-0" style="background: linear-gradient(135deg, #131d3d 0%, #2a4ebb 100%); color: white; border-radius: 20px; box-shadow: 0 10px 40px rgba(78, 115, 223, 0.2);">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 style="margin: 0; font-size: 1.8rem; font-weight: 700;">
+                            Hello, <?php echo htmlspecialchars($_SESSION['name']); ?>!
+                        </h2>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">
+                            <span class="d-inline-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-25 text-white me-2" style="width:26px;height:26px;">
+                                <i class="fas fa-user-shield"></i>
+                            </span>ADMIN – System Overview
+                        </p>
+                    </div>
+                    
+                    <!-- Breadcrumb integrated into header -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -197,4 +206,4 @@ if ($_SESSION['role'] !== 'admin') {
 
 </div>
 
-<?php include '../includes/footer.php'; ?> 
+<?php include '../includes/footer.php'; ?>

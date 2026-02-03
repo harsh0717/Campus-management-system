@@ -1,11 +1,23 @@
 <?php
 include '../auth/auth_check.php';
+include '../config/db.php';
 
-if ($_SESSION['role'] !== 'faculty') {
-    header("Location: ../auth/login.php");
-    exit;
-}
+$user_id = $_SESSION['user_id'];
+
+$sql = "
+    SELECT 
+        u.name,
+        f.department,
+        f.designation
+    FROM users u
+    INNER JOIN faculty f ON u.id = f.user_id
+    WHERE u.id = $user_id
+";
+
+$result = mysqli_query($conn, $sql);
+$faculty = mysqli_fetch_assoc($result);
 ?>
+
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar-faculty.php'; ?>
 
@@ -138,6 +150,24 @@ if ($_SESSION['role'] !== 'faculty') {
     .action-btn i { font-size: 1.4rem; margin-bottom: 0.5rem; color: var(--accent-color); }
     .action-btn:hover i { color: white; }
 </style>
+
+<div class="content-section mb-4">
+    <div class="card-modern" style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); color: white; border: none;">
+        <div class="card-modern-header" style="border-bottom: 1px solid rgba(14, 145, 233, 0.97);">
+            <div>
+                <h2 style="margin: 0; font-size: 1.8rem; font-weight: 700;">
+                    Hello, <?php echo htmlspecialchars($faculty['name']); ?>!
+                </h2>
+                <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">
+                    <i class="fas fa-briefcase me-2"></i><?php echo htmlspecialchars($faculty['designation']); ?> – <?php echo htmlspecialchars($faculty['department']); ?>
+                </p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 1rem; opacity: 0.9;">
+                    <i class="fas fa-briefcase me-2"></i><?php echo htmlspecialchars($faculty['designation']); ?> – <?php echo htmlspecialchars($faculty['department']); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="stats-container">
