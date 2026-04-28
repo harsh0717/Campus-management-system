@@ -1,11 +1,28 @@
 <?php
 include '../auth/auth_check.php';
+include '../config/db.php';
 
 if ($_SESSION['role'] !== 'student') {
     header("Location: ../auth/login.php");
     exit;
 }
+
+$user_id = $_SESSION['user_id'];
+
+$sq = mysqli_query($conn, "SELECT id FROM students WHERE user_id = $user_id");
+$student = mysqli_fetch_assoc($sq);
+$student_id = $student['id'];
+
+$sql = "
+    SELECT course, date, status
+    FROM attendance
+    WHERE student_id = $student_id
+    ORDER BY date DESC
+";
+
+$result = mysqli_query($conn, $sql);
 ?>
+
 <?php include '../includes/header.php'; ?>
 <?php include '../includes/sidebar-student.php'; ?>
 
@@ -19,8 +36,8 @@ if ($_SESSION['role'] !== 'student') {
         --danger-color: #e74c3c;
         --warning-color: #f1c40f;
         --light-bg: #f8f9fa;
-        --card-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        --hover-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     body {
@@ -32,7 +49,7 @@ if ($_SESSION['role'] !== 'student') {
     .card-modern {
         background: white;
         border-radius: 16px;
-        border: 1px solid rgba(0,0,0,0.03);
+        border: 1px solid rgba(0, 0, 0, 0.03);
         box-shadow: var(--card-shadow);
         overflow: hidden;
         margin-bottom: 1.5rem;
@@ -40,12 +57,13 @@ if ($_SESSION['role'] !== 'student') {
 
     .card-modern-header {
         padding: 1.5rem;
-        border-bottom: 1px solid rgba(0,0,0,0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
         display: flex;
         justify-content: space-between;
         align-items: center;
         background: white;
-        flex-wrap: wrap; /* Responsive wrap */
+        flex-wrap: wrap;
+        /* Responsive wrap */
         gap: 10px;
     }
 
@@ -66,8 +84,15 @@ if ($_SESSION['role'] !== 'student') {
         color: var(--primary-color);
         letter-spacing: -0.5px;
     }
-    .breadcrumb-item a { color: var(--accent-color); text-decoration: none; }
-    .breadcrumb-item.active { color: #95a5a6; }
+
+    .breadcrumb-item a {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+
+    .breadcrumb-item.active {
+        color: #95a5a6;
+    }
 
     /* Stats Cards */
     .stat-card {
@@ -90,13 +115,21 @@ if ($_SESSION['role'] !== 'student') {
     .stat-card::after {
         content: '';
         position: absolute;
-        top: 0; left: 0; width: 4px; height: 100%;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
         background: var(--accent-color);
         opacity: 0.5;
     }
-    
-    .stat-card.green::after { background: #2ecc71; }
-    .stat-card.orange::after { background: #e67e22; }
+
+    .stat-card.green::after {
+        background: #2ecc71;
+    }
+
+    .stat-card.orange::after {
+        background: #e67e22;
+    }
 
     .stat-icon-wrapper {
         width: 50px;
@@ -109,16 +142,52 @@ if ($_SESSION['role'] !== 'student') {
         margin-bottom: 1rem;
     }
 
-    .bg-soft-primary { background: rgba(52, 152, 219, 0.1); color: var(--accent-color); }
-    .bg-soft-green { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
-    .bg-soft-orange { background: rgba(230, 126, 34, 0.1); color: #e67e22; }
+    .bg-soft-primary {
+        background: rgba(52, 152, 219, 0.1);
+        color: var(--accent-color);
+    }
 
-    .stat-number { font-size: 2rem; font-weight: 800; color: var(--primary-color); line-height: 1; }
-    .stat-label { font-size: 0.85rem; color: #7f8c8d; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px; }
-    .stat-trend { font-size: 0.75rem; font-weight: 600; margin-top: 0.5rem; display: flex; align-items: center; }
-    
+    .bg-soft-green {
+        background: rgba(46, 204, 113, 0.1);
+        color: #2ecc71;
+    }
+
+    .bg-soft-orange {
+        background: rgba(230, 126, 34, 0.1);
+        color: #e67e22;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--primary-color);
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: #7f8c8d;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 5px;
+    }
+
+    .stat-trend {
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+
     /* Table Styling */
-    .table-modern { width: 100%; margin-bottom: 0; white-space: nowrap; }
+    .table-modern {
+        width: 100%;
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
     .table-modern thead th {
         background: #f8f9fa;
         color: #7f8c8d;
@@ -128,14 +197,21 @@ if ($_SESSION['role'] !== 'student') {
         padding: 1rem 1.5rem;
         border-bottom: 1px solid #eef2f7;
     }
+
     .table-modern tbody td {
         padding: 1.25rem 1.5rem;
         vertical-align: middle;
         border-bottom: 1px solid #f8f9fa;
         color: #555;
     }
-    .table-modern tbody tr:last-child td { border-bottom: none; }
-    .table-modern tbody tr:hover { background: #fafbfc; }
+
+    .table-modern tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table-modern tbody tr:hover {
+        background: #fafbfc;
+    }
 
     /* Progress Bars */
     .progress-slim {
@@ -144,7 +220,7 @@ if ($_SESSION['role'] !== 'student') {
         background-color: #f1f3f5;
         overflow: hidden;
     }
-    
+
     /* Form Select Modern */
     .form-select-modern {
         border: 1px solid #eef2f7;
@@ -153,9 +229,10 @@ if ($_SESSION['role'] !== 'student') {
         font-size: 0.9rem;
         color: var(--primary-color);
         background-color: #fff;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         cursor: pointer;
     }
+
     .form-select-modern:focus {
         border-color: var(--accent-color);
         box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
@@ -163,17 +240,21 @@ if ($_SESSION['role'] !== 'student') {
 
     /* RESPONSIVE MEDIA QUERIES */
     @media (max-width: 768px) {
-        .page-header-title { font-size: 1.5rem; }
-        
+        .page-header-title {
+            font-size: 1.5rem;
+        }
+
         /* Header adjustments */
         .header-container {
             flex-direction: column;
             align-items: flex-start !important;
             gap: 1rem;
         }
-        .header-container > div:last-child {
+
+        .header-container>div:last-child {
             width: 100%;
         }
+
         .form-select-modern {
             width: 100%;
         }
@@ -183,6 +264,7 @@ if ($_SESSION['role'] !== 'student') {
             flex-direction: column;
             align-items: flex-start;
         }
+
         .card-modern-header button {
             width: 100%;
             margin-top: 0.5rem;
@@ -196,7 +278,7 @@ if ($_SESSION['role'] !== 'student') {
 </style>
 
 <main class="container-fluid px-4 py-4">
-    
+
     <!-- 1. Header Section -->
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-2 pb-4 header-container">
         <div>
@@ -291,89 +373,20 @@ if ($_SESSION['role'] !== 'student') {
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Subject 1 -->
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-soft-primary text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; flex-shrink: 0;">
-                                    <i class="fas fa-code"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">Computer Science</div>
-                                    <div class="small text-muted">CS101 • Prof. Smith</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center fw-bold text-secondary">40</td>
-                        <td class="text-center fw-bold text-dark">37</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="progress progress-slim flex-grow-1 me-3">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 92%"></div>
-                                </div>
-                                <span class="fw-bold text-success">92%</span>
-                            </div>
-                        </td>
-                        <td class="text-end pe-4">
-                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill border border-success border-opacity-25">Good Standing</span>
-                        </td>
-                    </tr>
-                    
-                    <!-- Subject 2 -->
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-soft-green text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; flex-shrink: 0;">
-                                    <i class="fas fa-calculator"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">Mathematics</div>
-                                    <div class="small text-muted">MAT201 • Dr. Jones</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center fw-bold text-secondary">30</td>
-                        <td class="text-center fw-bold text-dark">26</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="progress progress-slim flex-grow-1 me-3">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 86%"></div>
-                                </div>
-                                <span class="fw-bold text-success">86%</span>
-                            </div>
-                        </td>
-                        <td class="text-end pe-4">
-                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill border border-success border-opacity-25">Good Standing</span>
-                        </td>
-                    </tr>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['course']); ?></td>
+                            <td><?php echo htmlspecialchars($row['date']); ?></td>
+                            <td>
+                                <?php if ($row['status'] === 'present'): ?>
+                                    <span class="badge bg-success">Present</span>
+                                <?php else: ?>
+                                    <span class="badge bg-danger">Absent</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
 
-                    <!-- Subject 3 -->
-                    <tr>
-                        <td class="ps-4">
-                            <div class="d-flex align-items-center">
-                                <div class="bg-soft-orange text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; flex-shrink: 0;">
-                                    <i class="fas fa-atom"></i>
-                                </div>
-                                <div>
-                                    <div class="fw-bold text-dark">Physics</div>
-                                    <div class="small text-muted">PHY102 • Prof. Ray</div>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center fw-bold text-secondary">25</td>
-                        <td class="text-center fw-bold text-dark">16</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="progress progress-slim flex-grow-1 me-3">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 64%"></div>
-                                </div>
-                                <span class="fw-bold text-danger">64%</span>
-                            </div>
-                        </td>
-                        <td class="text-end pe-4">
-                            <span class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill border border-danger border-opacity-25">Short Attendance</span>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>

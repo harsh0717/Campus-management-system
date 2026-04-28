@@ -287,6 +287,10 @@
         <a href="upload_results.php" class="sidebar-link <?php echo $current_page == 'upload_results.php' ? 'active' : ''; ?>">
             <i class="fas fa-file-upload"></i> <span>Upload Results</span>
         </a>
+
+         <a href="view_attendance.php" class="sidebar-link <?php echo $current_page == 'view_attendance' ? 'active' : ''; ?>">
+            <i class="fas fa-user-check"></i> <span>View Attendance</span>
+        </a>
         
         <!-- Group 2: Communication -->
         <div class="sidebar-heading">Communication</div>
