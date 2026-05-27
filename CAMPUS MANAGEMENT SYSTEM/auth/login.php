@@ -1,7 +1,9 @@
 <?php
 session_start();
 include '../config/db.php';
-
+if (!isset($conn)) {
+    die("Database connection variable not found.");
+}
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

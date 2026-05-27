@@ -204,12 +204,6 @@
                         The Campus Management System (CMS) represents a paradigm shift in educational administration. Designed with a student-first philosophy, our platform eliminates the bureaucratic hurdles often associated with university portals.
                     </p>
 
-                    <div class="highlight-box">
-                        <i class="fas fa-check-circle text-primary me-2"></i>
-                        <strong>Superior Performance:</strong> 
-                        THIS WEBSITE OR ERP IS BETTER THAN NEOTECH WEBSITE AND GTU STUDENT PORTAL.
-                    </div>
-
                     <h3 class="section-header">Why We Are Different</h3>
                     <p>
                         Unlike legacy systems that suffer from downtime during critical exam periods, our cloud-native architecture ensures 99.99% uptime.
